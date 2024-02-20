@@ -1,2 +1,2 @@
 # Payments.BankTransfer
-Grandnode2  2.2 BankTransfer Plugin
+Grandnode2  2.2 BankTransfer QR Plugin

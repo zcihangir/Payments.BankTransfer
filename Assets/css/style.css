@@ -1,0 +1,10 @@
+﻿#qrcode {
+    width: 256px;
+    height: 256px;
+}
+
+.qr-payment-detail {
+    max-width: 500px;
+    width: 100%;
+    text-align: left;
+}

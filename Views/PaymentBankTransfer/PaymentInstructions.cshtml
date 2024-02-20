@@ -1,0 +1,61 @@
+﻿@using Grand.Infrastructure;
+@model Payments.BankTransfer.Models.PaymentInstructionsModel
+@inject IWorkContext workContext
+
+@{
+    Layout = "_SingleColumn";
+}
+
+<link href="/Plugins/Payments.BankTransfer/Assets/css/style.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+<div class="page checkout-page order-completed-page text-center">
+    <div class="checkout-data mt-3">
+        <div class="card">
+            <div class="h3 mt-3 mb-0">@Loc["Checkout.OrderNumber"]: <span class="text-info">@Model.OrderNumber</span></div>
+            <div class="card-body">
+                @*<div id="qrcode" class="m-auto"></div>*@
+                <img style="width: 50vw; max-width: 300px;" src="@Url.Action("PaymentCode", "PaymentBankTransfer", new { orderId = Model.OrderId })" id="generated-image" />
+                <div class="qr-payment-detail m-auto">
+                    <table class="table table-sm my-4">
+                        <tr>
+                            <td>@Loc["Plugins.Payment.BankTransfer.AccountNumber"]</td>
+                            <td style="text-align: right;">@Model.AccountNumber</td>
+                        </tr>
+                        <tr>
+                            <td>@Loc["Plugins.Payment.BankTransfer.IBAN"]</td>
+                            <td style="text-align: right;">@Model.IBAN</td>
+                        </tr>
+                        <tr>
+                            <td>@Loc["Plugins.Payment.BankTransfer.SWIFT"]</td>
+                            <td style="text-align: right;">@Model.SWIFT</td>
+                        </tr>
+                        <tr>
+                            <td>@Loc["Plugins.Payment.BankTransfer.VariableSymbol"]</td>
+                            <td style="text-align: right;">@Model.VariableSymbol</td>
+                        </tr>
+                        <tr>
+                            <td>@Loc["Plugins.Payment.BankTransfer.Amount"]</td>
+                            <td style="text-align: right;">@Model.TotalAmount.ToString("N2") @Model.CurrencyCode</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="buttons">
+                    <a class="btn btn-secondary mb-1" href="@Url.RouteUrl("OrderDetails", new { orderId = Model.OrderId })">@Loc["Checkout.PlacedOrderDetails"]</a>
+                    <button type="button" class="btn btn-info order-completed-continue-button mb-1" onclick="location=('@Url.RouteUrl("HomePage")')">
+                        @Loc["Checkout.ThankYou.Continue"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script asp-location="Footer" asp-order="100" src="/Plugins/Payments.BankTransfer/Assets/plugin/qrcode.js/qrcode.js"></script>
+<script asp-location="Footer" asp-order="101">
+    new QRCode(document.getElementById('qrcode'), {
+        text: '@Html.Raw(Model.QrCodePaymentString)',
+        //width: 128,
+        //height: 128,
+        //correctLevel: QRCode.CorrectLevel.H
+    });
+</script>*@
